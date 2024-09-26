@@ -1,23 +1,10 @@
-import React, { useCallback, useState } from "react";
-import Navbar from "./Navbar";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  useGetSpecificCountry,
-  useGetCountryByCode,
-} from "../customHooks/useReactQuery";
+import React from "react";
+import { Link, useNavigate} from "react-router-dom";
 import { getCountryByCode } from "../api/axios";
-import { Loading } from "./Loading";
-import Error from "./Error";
+import { ApiState } from "../hoc/ApiState";
 
-const Country = () => {
-  const params = useParams();
-  const { name } = params;
+const _Country = ({ country }) => {
   const navigate = useNavigate();
-  const { data, isError, isLoading, error } = useGetSpecificCountry(name);
-
-  if (isLoading) return <Loading flag={false} />;
-  if (isError) return <Error error={error} flag={false} />;
-  const country = data.data[0];
 
   const handleBorder = async (code) => {
     try {
@@ -27,7 +14,6 @@ const Country = () => {
     } catch (err) {
       console.log(err.message);
     }
-    
   };
 
   return (
@@ -123,4 +109,4 @@ const Country = () => {
   );
 };
 
-export default Country;
+export const Country = ApiState(_Country);

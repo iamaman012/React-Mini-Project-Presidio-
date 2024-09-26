@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 const SearchInput = ({ handleSearchChange }) => {
   return (
-    <div className='container'>
+    <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
           <input
